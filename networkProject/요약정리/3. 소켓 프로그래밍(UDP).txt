@@ -1,0 +1,69 @@
+
+@ UDP 소켓 프로그래밍
+-> UDP 소켓 프로그래밍에서는 DatagramSocket과 DatagramPacket을 사용함
+-> UDP는 비연결 지향적인 특성을 가지고 있기 때문에 연결 요청을 받아줄 서버 소켓이 필요 없음
+-> 두 DatagramSocket 간에 데이터(DatagramPacket)을 주고 받음
+
+
+
+< 서버용 >
+1. 포트번호를 정함
+	int UDPport = 8888; // 1024 이상의 정수값
+	int clientUDPPort = 9999;
+2. DatagramSocket 객체를 생성
+	DatagramSocket 소켓레퍼런스 = new DatagramSocket(port);
+
+3. 연결할 클라이언트의 ip 주소를 가진 InetAddress 객체 생성
+	InetAddress 레퍼런스 = InetAddress.getByName("client ip주소");
+
+4. 전송할 메시지를 byte[] 로 바꿈
+	String 클래스의 getByte() 메소드를 사용함
+
+5. 전송할 메시지를 DatagramPacket 객체에 담음
+	DatagramPacket 패킷레퍼런스 = new DatagramPacket(byte[], 배열크기, InetAddress 레퍼런스, clientUDPPort);
+
+6. 소켓레퍼런스를 사용해서 메시지를 보냄
+	소켓레퍼런스.send(패킷레퍼런스);
+
+7. 소켓 닫기
+	소켓레퍼런스.close();
+
+
+
+< 클라이언트용 >
+1. 서버가 보낸 메시지를 받을 byte[] 를 준비함
+	byte [] message = new byte[1024];
+
+2. DatagramSocket 객체를 생성함
+	DatagramSocket 소켓레퍼런스 = new DatagramSocket();
+
+3. 메세지를 DatagramPacket 객체를 준비함
+	DatagramPacket 패킷레퍼런스 = new DatagramPacket(byte[], 배열크기);
+
+4. 소켓레퍼런스를 사용해서 메세지를 받음
+	소켓레퍼런스.receive(패킷레퍼런스);
+
+5. byte[]로 받은 메세지를 String으로 바꾸어 출력 확인
+	new String(byte[])
+	데이터 출력전 trim() 메소드를 사용하면 패딩값을 자를 수 있음
+
+6. 소켓 닫기
+	소켓레퍼런스.close();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

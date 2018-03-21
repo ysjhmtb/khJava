@@ -52,7 +52,7 @@ public class MultiChatServer {
 				
 				while(true){
 					String message = dis.readUTF();
-					sendMessageAll(message);
+					System.out.println(message);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
